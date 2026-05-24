@@ -51,13 +51,23 @@
     align-items: stretch;
     gap: 0;
     padding: var(--space-md);
-    transform: translateY(-110%);
-    transition: transform 350ms ease;
+    /* Slide fully off-screen — translateY(-100vh) guarantees the drawer
+       (and its "Contact" link at the bottom) is completely hidden, no
+       matter how tall the drawer is. */
+    transform: translateY(-100vh);
+    visibility: hidden;
+    opacity: 0;
+    transition: transform 350ms ease, opacity 250ms ease, visibility 0s linear 350ms;
     box-shadow: 0 10px 30px rgba(0, 255, 65, 0.06);
+    pointer-events: none;
   }
 
   .nav-links.open {
     transform: translateY(0);
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition: transform 350ms ease, opacity 250ms ease, visibility 0s linear 0s;
   }
 
   .nav-link {
