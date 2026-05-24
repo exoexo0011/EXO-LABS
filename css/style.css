@@ -1898,3 +1898,60 @@ section {
 .nav-socials {
   margin-left: 0;
 }
+
+
+
+
+/* ============================================
+   Nav v4 — Bulletproof brand logo
+   Guarantee the [ EXO LABS ] brand mark always displays on the LEFT
+   of the navbar, on EVERY page, on EVERY screen size.
+   ============================================ */
+
+.nav-container {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between !important;
+  flex-wrap: nowrap;
+}
+
+.nav-logo {
+  display: flex !important;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  min-width: max-content;
+  position: relative;
+  z-index: 102;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.nav-logo .bracket {
+  display: inline-block;
+}
+
+.nav-end {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: var(--space-md);
+}
+
+/* Tighter cluster on mobile so logo always has breathing room */
+@media (max-width: 768px) {
+  .nav-end {
+    gap: 0.4rem;
+  }
+
+  .nav-container {
+    padding: 0 var(--space-sm) !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .nav-logo {
+    font-size: 1rem;
+    letter-spacing: 0.1em;
+  }
+}
