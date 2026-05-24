@@ -2028,3 +2028,72 @@ section {
     padding-bottom: var(--space-xl) !important;
   }
 }
+
+
+
+
+/* ============================================
+   v2.0.0 Highlights — feature lists with ✦ marker
+   ============================================ */
+
+.feature-heading {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  letter-spacing: 0.15em;
+  margin: var(--space-md) 0 0.75rem;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.feature-heading:first-child {
+  margin-top: 0;
+}
+
+/* "v2.0.0" pill in front of "Highlights" */
+.hl-tag {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  padding: 0.1rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent-purple, #7b2fff);
+  color: var(--accent-purple, #7b2fff);
+  background: rgba(123, 47, 255, 0.08);
+  text-shadow: 0 0 6px rgba(123, 47, 255, 0.5);
+  text-transform: none;
+}
+
+/* Override the default ▸ marker on highlight rows with a ✦ in purple */
+.tool-features.tool-highlights li::before {
+  content: "\2726";        /* ✦ */
+  color: var(--accent-purple, #7b2fff);
+  text-shadow:
+    0 0 6px rgba(123, 47, 255, 0.7),
+    0 0 14px rgba(123, 47, 255, 0.35);
+}
+
+.tool-features.tool-highlights li {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Subtle outline + soft background to set highlights apart */
+.tool-features.tool-highlights {
+  padding: 0.6rem 0.85rem;
+  border: 1px solid rgba(123, 47, 255, 0.22);
+  border-radius: var(--radius-md);
+  background: linear-gradient(
+    180deg,
+    rgba(123, 47, 255, 0.05),
+    rgba(123, 47, 255, 0.015)
+  );
+  margin-bottom: var(--space-lg);
+}
+
+@media (max-width: 480px) {
+  .tool-features.tool-highlights {
+    padding: 0.5rem 0.6rem;
+  }
+}

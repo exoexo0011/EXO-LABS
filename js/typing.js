@@ -2,7 +2,7 @@
    EXO LABS - Typewriters
    Handles BOTH:
      1) Hero tagline   — any element with [data-typed]
-     2) Hero terminal  — #hero-terminal-body
+     2) Hero terminal  — #hero-terminal-body  (interactive menu demo)
    No external deps. Respects prefers-reduced-motion.
    ============================================ */
 
@@ -57,34 +57,48 @@
   }
 
   /* ============================================================
-     2) Hero terminal typewriter
+     2) Hero terminal — EXO-NET interactive menu demo
      ============================================================ */
 
-  // Lines, exactly per spec (using \u escapes so the file stays ASCII-safe)
+  // Each line is a distinct terminal row. Empty strings render blank lines.
+  // Box-drawing chars render in the green "ok" colour so the menu looks
+  // like a green TUI box.
   const TERMINAL_LINES = [
-    'exo@labs:~$ ./exonet --target 192.168.1.0/24 --aggressive',
-    '[*] Initializing EXO NET Pro v2.0.0...',
-    '[*] Discovering hosts on 192.168.1.0/24...',
-    '[+] Host found: 192.168.1.1 (router.lan) os=Linux ttl=64',
-    '[+] Host found: 192.168.1.5 (desktop.lan) os=Windows ttl=128',
-    '[+] Port 80 open \u2014 nginx/1.24 | "Admin Panel"',
-    '[+] Port 443 open \u2014 TLS 1.3 | self-signed cert detected',
-    '[!] Risk score: MEDIUM (47/100)',
-    '[*] Report saved \u2192 exonet_results/report_pro.html',
-    'exo@labs:~$ '
+    'exo@labs:~$ python exonet.py',
+    '',
+    '\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557',
+    '\u2551     EXO NET Pro v2.0.0       \u2551',
+    '\u2560\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2563',
+    '\u2551  [1]  Quick Scan             \u2551',
+    '\u2551  [2]  Full Network Scan      \u2551',
+    '\u2551  [3]  Pro Scan               \u2551',
+    '\u2551  [4]  Stealth Scan           \u2551',
+    '\u2551  [Q]  Quit                   \u2551',
+    '\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D',
+    '',
+    '[?] Choose option: 3'
   ];
 
   // Timings — per spec
   const CHAR_DELAY    = 40;    // ms per character
   const LINE_DELAY    = 200;   // ms between lines
-  const RESTART_DELAY = 2000;  // ms before clearing & looping
+  const RESTART_DELAY = 2500;  // ms before clearing & looping
 
-  // Colour by line prefix
+  // Colour by line content
   function classFor(line) {
+    if (!line) return 'tx-cmd';
+    const c0 = line.charAt(0);
+    // Box-drawing rows → green (the EXO menu UI)
+    if (c0 === '\u2551' || c0 === '\u2554' || c0 === '\u2557' ||
+        c0 === '\u255A' || c0 === '\u255D' || c0 === '\u2560' ||
+        c0 === '\u2563' || c0 === '\u2550') {
+      return 'tx-ok';
+    }
     if (line.startsWith('[*]')) return 'tx-info';   // cyan
     if (line.startsWith('[+]')) return 'tx-ok';     // green
     if (line.startsWith('[!]')) return 'tx-warn';   // yellow
     if (line.startsWith('[-]')) return 'tx-err';    // red
+    if (line.startsWith('[?]')) return 'tx-info';   // cyan prompt
     return 'tx-cmd';                                // white — commands / prompt
   }
 
@@ -112,25 +126,26 @@
         if (cursor.parentNode) cursor.remove();
         el.appendChild(cursor);
 
-        // Type each character
-        for (let j = 0; j < text.length; j++) {
-          if (terminalAborted) return;
-          span.textContent += text[j];
-          await sleep(CHAR_DELAY);
+        // Type each character (empty lines: nothing to type, just pause briefly)
+        if (text.length === 0) {
+          await sleep(LINE_DELAY / 2);
+        } else {
+          for (let j = 0; j < text.length; j++) {
+            if (terminalAborted) return;
+            span.textContent += text[j];
+            await sleep(CHAR_DELAY);
+          }
         }
 
-        // Newline + pause between lines (skip after last line)
+        // Newline + pause between lines (skip after last line — cursor stays)
         if (i < TERMINAL_LINES.length - 1) {
-          // Detach the cursor before adding the newline so the newline
-          // ends up *between* lines and the cursor will be re-appended
-          // at the end of the next line.
           cursor.remove();
           el.appendChild(document.createTextNode('\n'));
           await sleep(LINE_DELAY);
         }
       }
 
-      // Hold final state, then clear and loop from beginning
+      // Hold final state with the blinking cursor on the prompt, then loop
       await sleep(RESTART_DELAY);
     }
   }
