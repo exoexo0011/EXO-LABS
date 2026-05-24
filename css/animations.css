@@ -60,28 +60,7 @@
   }
 }
 
-/* Scanline traveling across hero */
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
-}
-
-.hero::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 80px;
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(0, 255, 65, 0.06),
-    transparent
-  );
-  z-index: 2;
-  pointer-events: none;
-  animation: scanline 8s linear infinite;
-}
+/* (Old hero band-scanline removed; replaced by .hero-scanline thin sweep in style.css) */
 
 /* Fade in */
 @keyframes fadeIn {
@@ -108,6 +87,80 @@
 .slide-up.delay-3 { animation-delay: 350ms; }
 .slide-up.delay-4 { animation-delay: 500ms; }
 .slide-up.delay-5 { animation-delay: 700ms; }
+.slide-up.delay-6 { animation-delay: 900ms; }
+.slide-up.delay-7 { animation-delay: 1100ms; }
+
+/* ============================================
+   Hero v2 — Redesigned hero animations
+   ============================================ */
+
+/* Bright thin scanline sweeping the hero top → bottom */
+@keyframes scanline-sweep {
+  0%   { top: -2%;  opacity: 0; }
+  6%   { opacity: 0.95; }
+  94%  { opacity: 0.95; }
+  100% { top: 102%; opacity: 0; }
+}
+
+/* Logo underline grows from 0 → full width on load */
+@keyframes line-grow {
+  0%   { width: 0;     opacity: 0; }
+  20%  { opacity: 1; }
+  100% { width: 100%;  opacity: 1; }
+}
+
+/* Subtle continuous flicker on the ASCII logo (no glitch) */
+@keyframes logo-flicker {
+  0%, 100% { opacity: 1; }
+  47%, 49% { opacity: 0.92; }
+  48%      { opacity: 0.78; }
+}
+
+/* Shifting gradient background for the primary CTA */
+@keyframes bg-shift {
+  0%   { background-position:   0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+/* Pulsing glow halos for CTAs */
+@keyframes pulse-glow-green {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(0, 255, 65, 0.45),
+      0 0 14px rgba(0, 255, 65, 0.30);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgba(0, 255, 65, 0),
+      0 0 30px rgba(0, 255, 65, 0.55);
+  }
+}
+
+@keyframes pulse-glow-cyan {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(0, 207, 255, 0.45),
+      0 0 14px rgba(0, 207, 255, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 10px rgba(0, 207, 255, 0),
+      0 0 28px rgba(0, 207, 255, 0.45);
+  }
+}
+
+@keyframes pulse-glow-ghost {
+  0%, 100% {
+    box-shadow:
+      0 0 0 0 rgba(123, 47, 255, 0),
+      0 0 8px rgba(0, 255, 65, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 6px rgba(123, 47, 255, 0),
+      0 0 22px rgba(0, 255, 65, 0.30);
+  }
+}
 
 /* Scan flicker for ASCII logo */
 @keyframes flicker {

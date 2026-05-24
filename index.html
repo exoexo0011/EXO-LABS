@@ -56,7 +56,9 @@
     <!-- HERO -->
     <section class="hero" aria-labelledby="hero-heading">
       <canvas id="matrix-canvas" aria-hidden="true"></canvas>
+      <div class="hero-hex" aria-hidden="true"></div>
       <div class="hero-overlay" aria-hidden="true"></div>
+      <div class="hero-scanline" aria-hidden="true"></div>
 
       <div class="hero-content">
         <h1 class="visually-hidden" id="hero-heading" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);">EXO LABS — Advanced Cybersecurity Tools and Research</h1>
@@ -71,6 +73,8 @@
 
         <h2 class="ascii-logo-fallback" aria-hidden="true">EXO LABS</h2>
 
+        <div class="logo-underline" aria-hidden="true"></div>
+
         <p class="hero-tagline slide-up delay-2">
           [&nbsp;<span class="typed-text" data-typed data-text="Advanced Cybersecurity Tools &amp; Research"></span><span class="cursor">_</span>&nbsp;]
         </p>
@@ -79,26 +83,45 @@
           <span class="comment">//</span> Built for ethical hackers, security researchers and defenders
         </p>
 
-        <div class="stats slide-up delay-4" role="list">
-          <div class="stat" role="listitem">
-            <span class="stat-value" data-counter data-target="2" data-suffix="">0</span>
+        <div class="hero-terminal slide-up delay-4" aria-label="EXO-NET live scan demonstration">
+          <div class="hero-terminal-header">
+            <span class="terminal-dot red" aria-hidden="true"></span>
+            <span class="terminal-dot yellow" aria-hidden="true"></span>
+            <span class="terminal-dot green" aria-hidden="true"></span>
+            <span class="hero-terminal-title">exo@labs:~/exo-net</span>
+          </div>
+          <pre class="hero-terminal-body" id="hero-terminal-body" aria-live="polite"></pre>
+        </div>
+
+        <div class="stats-bar slide-up delay-5" role="list" aria-label="EXO LABS at a glance">
+          <div class="stat-item" role="listitem">
+            <i class="fa-solid fa-terminal" aria-hidden="true"></i>
+            <span class="stat-value" data-counter data-target="2">0</span>
             <span class="stat-label">Tools Released</span>
           </div>
-          <div class="stat" role="listitem">
+          <span class="stat-divider" aria-hidden="true"></span>
+          <div class="stat-item" role="listitem">
+            <i class="fa-solid fa-code" aria-hidden="true"></i>
             <span class="stat-value" data-counter data-target="1000" data-suffix="+">0</span>
             <span class="stat-label">Lines of Code</span>
           </div>
-          <div class="stat" role="listitem">
+          <span class="stat-divider" aria-hidden="true"></span>
+          <div class="stat-item" role="listitem">
+            <i class="fa-brands fa-osi" aria-hidden="true"></i>
             <span class="stat-value" data-counter data-target="100" data-suffix="%">0</span>
             <span class="stat-label">Open Source</span>
           </div>
         </div>
 
-        <div class="slide-up delay-5" style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
-          <a href="tools.html" class="btn btn-primary">
-            <i class="fa-solid fa-terminal" aria-hidden="true"></i> Browse Tools
+        <div class="cta-row slide-up delay-6">
+          <a href="tools.html" class="btn btn-primary btn-cta btn-cta-primary btn-pulse-green">
+            <span class="btn-prefix" aria-hidden="true">&gt;_</span> Browse Tools
+            <i class="fa-solid fa-arrow-right cta-arrow" aria-hidden="true"></i>
           </a>
-          <a href="https://github.com/exoexo0011" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+          <a href="https://github.com/exoexo0011/EXO-OSINT" target="_blank" rel="noopener noreferrer" class="btn btn-cta btn-cyan btn-pulse-cyan">
+            <span class="btn-prefix" aria-hidden="true">&gt;_</span> Run EXO-OSINT
+          </a>
+          <a href="https://github.com/exoexo0011" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-cta btn-pulse-ghost">
             <i class="fa-brands fa-github" aria-hidden="true"></i> GitHub
           </a>
         </div>
@@ -219,6 +242,7 @@
   <!-- Scripts -->
   <script src="js/matrix.js" defer></script>
   <script src="js/typing.js" defer></script>
+  <script src="js/terminal.js" defer></script>
   <script src="js/animations.js" defer></script>
   <script src="js/main.js" defer></script>
 </body>

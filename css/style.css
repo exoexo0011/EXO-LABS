@@ -1465,3 +1465,365 @@ section {
     display: none !important;
   }
 }
+
+
+
+/* ============================================
+   Hero v2 — Redesigned hero
+   (Appended; later rules win the cascade)
+   ============================================ */
+
+:root {
+  --accent-purple: #7b2fff;
+  --accent-purple-dim: #7b2fff33;
+}
+
+/* Make matrix rain more visible */
+#matrix-canvas {
+  opacity: 0.55;
+}
+
+/* Hexagonal grid overlay (CSS only via SVG data-URI) */
+.hero-hex {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='52' viewBox='0 0 60 52'><polygon points='30,1 58,17 58,35 30,51 2,35 2,17' fill='none' stroke='%2300ff41' stroke-width='0.6'/></svg>");
+  background-size: 60px 52px;
+  background-repeat: repeat;
+  opacity: 0.09;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 35%, transparent 85%);
+          mask-image: radial-gradient(ellipse at center, #000 35%, transparent 85%);
+}
+
+/* Bright thin sweeping scanline */
+.hero-scanline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -2%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #00ff41 18%,
+    #ffffff 50%,
+    #00ff41 82%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 12px #00ff41,
+    0 0 30px rgba(0, 255, 65, 0.6),
+    0 0 60px rgba(0, 255, 65, 0.25);
+  z-index: 4;
+  pointer-events: none;
+  animation: scanline-sweep 8s linear infinite;
+  opacity: 0;
+}
+
+/* ASCII Logo — sharper, layered glow, no infinite glitch */
+.ascii-logo {
+  text-shadow:
+    0 0 6px #00ff41,
+    0 0 16px rgba(0, 255, 65, 0.85),
+    0 0 36px rgba(0, 255, 65, 0.55),
+    0 0 72px rgba(0, 255, 65, 0.25);
+  animation: logo-flicker 6s ease-in-out infinite;
+  cursor: default;
+  transition: text-shadow 250ms ease;
+}
+
+.ascii-logo:hover {
+  /* one-shot subtle glitch then back to clean */
+  animation: glitch 0.45s steps(3, end) 1, logo-flicker 6s ease-in-out infinite;
+}
+
+/* Animated underline beneath logo */
+.logo-underline {
+  height: 2px;
+  width: 0;
+  max-width: 720px;
+  margin: -0.25rem auto var(--space-md);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    #00ff41 18%,
+    var(--accent-purple) 50%,
+    #00ff41 82%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 12px #00ff41,
+    0 0 24px rgba(0, 255, 65, 0.4);
+  animation: line-grow 1.6s 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+  opacity: 0;
+}
+
+/* Bigger, more dramatic tagline */
+.hero-tagline {
+  font-size: clamp(1.1rem, 2.6vw, 1.85rem);
+  letter-spacing: 0.02em;
+  margin-bottom: 0.5rem;
+}
+
+.hero-subtagline {
+  margin-bottom: var(--space-md);
+}
+
+/* ============================================
+   Hero terminal (live scan demo)
+   ============================================ */
+.hero-terminal {
+  max-width: 760px;
+  margin: var(--space-lg) auto var(--space-xl);
+  background: #050708;
+  border: 1px solid rgba(0, 255, 65, 0.35);
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: left;
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 255, 65, 0.08),
+    0 0 30px rgba(0, 255, 65, 0.18),
+    0 20px 60px rgba(0, 0, 0, 0.7);
+  position: relative;
+}
+
+.hero-terminal::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #00ff41, var(--accent-purple), #00ff41, transparent);
+  opacity: 0.85;
+  z-index: 1;
+}
+
+.hero-terminal-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.95rem;
+  background: linear-gradient(180deg, #0a0d0e, #07090a);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.18);
+}
+
+.hero-terminal-title {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.hero-terminal-body {
+  padding: var(--space-md) var(--space-md) calc(var(--space-md) + 0.25rem);
+  font-family: var(--font-mono);
+  font-size: clamp(0.72rem, 1.3vw, 0.88rem);
+  line-height: 1.7;
+  color: #c0e8c8;
+  min-height: 240px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+}
+
+.hero-terminal-body .tx-cmd  { color: #d8ffe1; }
+.hero-terminal-body .tx-info { color: #00cfff; text-shadow: 0 0 6px rgba(0, 207, 255, 0.4); }
+.hero-terminal-body .tx-ok   { color: #00ff41; text-shadow: 0 0 6px rgba(0, 255, 65, 0.5); }
+.hero-terminal-body .tx-warn { color: #ffe600; text-shadow: 0 0 6px rgba(255, 230, 0, 0.5); }
+.hero-terminal-body .tx-err  { color: #ff003c; text-shadow: 0 0 6px rgba(255, 0, 60, 0.5); }
+.hero-terminal-body .tx-accent { color: var(--accent-purple); text-shadow: 0 0 6px rgba(123, 47, 255, 0.6); }
+
+.hero-terminal-body .tx-cursor {
+  display: inline-block;
+  width: 9px;
+  height: 1em;
+  background: #00ff41;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  box-shadow: 0 0 8px #00ff41, 0 0 16px rgba(0, 255, 65, 0.6);
+}
+
+/* ============================================
+   Stats bar (horizontal with separators)
+   ============================================ */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  margin: 0 auto var(--space-lg);
+  max-width: 880px;
+  border-top: 1px solid rgba(0, 255, 65, 0.25);
+  border-bottom: 1px solid rgba(0, 255, 65, 0.25);
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.stats-bar::before,
+.stats-bar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 92%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    #00ff41 35%,
+    var(--accent-purple) 50%,
+    #00ff41 65%,
+    transparent
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.stats-bar::before { top: -1px; }
+.stats-bar::after  { bottom: -1px; }
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem;
+}
+
+.stat-item i {
+  font-size: 1.3rem;
+  color: #00ff41;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+  margin-bottom: 0.1rem;
+}
+
+.stat-item .stat-value {
+  font-family: var(--font-mono);
+  font-size: clamp(2.1rem, 5.5vw, 3.6rem);
+  color: #00ff41;
+  text-shadow:
+    0 0 10px #00ff41,
+    0 0 22px rgba(0, 255, 65, 0.55),
+    0 0 44px rgba(0, 255, 65, 0.25);
+  line-height: 1;
+  display: block;
+}
+
+.stat-item .stat-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stat-divider {
+  display: block;
+  width: 1px;
+  height: 64px;
+  flex-shrink: 0;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    #00ff41 28%,
+    var(--accent-purple) 50%,
+    #00ff41 72%,
+    transparent 100%
+  );
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+}
+
+/* ============================================
+   CTA row + redesigned buttons
+   ============================================ */
+.cta-row {
+  display: flex;
+  gap: 0.85rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-md);
+}
+
+.btn-cta {
+  padding: 0.85rem 1.7rem;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  position: relative;
+  overflow: visible; /* allow pulse glow to bleed outside */
+}
+
+.btn-cta .btn-prefix {
+  font-family: var(--font-mono);
+  opacity: 0.85;
+  margin-right: 0.4rem;
+}
+
+.btn-cta .cta-arrow {
+  margin-left: 0.55rem;
+  transition: transform 250ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.btn-cta:hover .cta-arrow {
+  transform: translateX(6px);
+}
+
+/* Primary CTA — animated gradient bg */
+.btn-cta-primary {
+  background: linear-gradient(90deg, #00ff41 0%, #00ffaa 50%, #00ff41 100%);
+  background-size: 200% 100%;
+  color: #000;
+  border-color: #00ff41;
+  text-shadow: none;
+  animation:
+    bg-shift 5s linear infinite,
+    pulse-glow-green 2.4s ease-in-out infinite;
+}
+
+.btn-cta-primary:hover {
+  background: linear-gradient(90deg, #00ff41 0%, #00ffcc 50%, #00ff41 100%);
+  background-size: 200% 100%;
+  color: #000;
+  text-shadow: none;
+}
+
+/* Cyan CTA */
+.btn-cyan {
+  background: transparent;
+  border: 1px solid #00cfff;
+  color: #00cfff;
+  text-shadow: 0 0 8px rgba(0, 207, 255, 0.55);
+}
+
+.btn-cyan:hover {
+  background: rgba(0, 207, 255, 0.08);
+  color: #00cfff;
+  text-shadow: 0 0 10px #00cfff, 0 0 20px rgba(0, 207, 255, 0.6);
+}
+
+/* Pulse rings (declared as animations on the button itself) */
+.btn-pulse-green { animation: pulse-glow-green 2.4s ease-in-out infinite; }
+.btn-pulse-cyan  { animation: pulse-glow-cyan  2.4s ease-in-out infinite; }
+.btn-pulse-ghost { animation: pulse-glow-ghost 3.0s ease-in-out infinite; }
+
+/* Primary already has bg-shift + pulse combined above; keep declaration order so that wins */
+.btn-cta-primary.btn-pulse-green {
+  animation:
+    bg-shift 5s linear infinite,
+    pulse-glow-green 2.4s ease-in-out infinite;
+}
+
+/* Slight lift on hover for all CTAs */
+.btn-cta:hover {
+  transform: translateY(-2px);
+}

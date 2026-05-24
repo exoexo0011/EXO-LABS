@@ -153,3 +153,87 @@
 .ascii-logo-fallback {
   display: none;
 }
+
+
+
+/* ============================================
+   Hero v2 — Mobile adjustments
+   ============================================ */
+
+/* Stats bar: stack vertically, hide vertical dividers, smaller numbers */
+@media (max-width: 700px) {
+  .stats-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: var(--space-md) var(--space-sm);
+  }
+
+  .stat-divider {
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      #00ff41 35%,
+      var(--accent-purple) 50%,
+      #00ff41 65%,
+      transparent
+    );
+  }
+
+  .stat-item .stat-value {
+    font-size: clamp(2.4rem, 9vw, 3.4rem);
+  }
+
+  /* CTA row: stack into a column, full-width buttons */
+  .cta-row {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-row .btn-cta {
+    justify-content: center;
+  }
+
+  /* Hero terminal: tighten margins on mobile so it doesn't kiss the edges */
+  .hero-terminal {
+    margin-left: var(--space-sm);
+    margin-right: var(--space-sm);
+  }
+
+  .hero-terminal-body {
+    min-height: 220px;
+    font-size: 0.72rem;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+  .hero-terminal-body {
+    min-height: 200px;
+    font-size: 0.68rem;
+    padding: var(--space-sm);
+  }
+
+  .hero-terminal-title {
+    font-size: 0.7rem;
+  }
+
+  .stats-bar {
+    margin-left: var(--space-sm);
+    margin-right: var(--space-sm);
+  }
+
+  .btn-cta {
+    padding: 0.75rem 1.2rem;
+    font-size: 0.92rem;
+  }
+
+  .logo-underline {
+    margin-top: 0;
+  }
+}
