@@ -1991,3 +1991,40 @@ section {
   white-space: nowrap !important;
   border: 0 !important;
 }
+
+
+
+
+/* ============================================
+   Bug-fix v6 — Scroll indicator overlap
+   The "Scroll ▼" arrow is position:absolute at the bottom of the hero.
+   When the hero content (logo + terminal + stats + CTAs) grows taller
+   than 100vh — especially on mobile where the CTA row stacks into a
+   column — the GitHub button collides with the arrow.
+   ============================================ */
+
+/* Reserve space at the bottom of the hero so the absolute-positioned
+   scroll indicator can never overlap the CTA row on desktop. */
+.hero {
+  padding-bottom: calc(var(--space-xl) + 4rem) !important;
+}
+
+/* CTA row sits above the scroll indicator in the stacking order. */
+.cta-row {
+  position: relative;
+  z-index: 5;
+}
+
+/* On mobile the content is already tall and the user is obviously
+   going to scroll anyway — hide the scroll arrow entirely so it can
+   never sit on top of the GitHub button. */
+@media (max-width: 768px) {
+  .scroll-indicator {
+    display: none !important;
+  }
+
+  .hero {
+    /* No need to reserve scroll-arrow space when it's hidden. */
+    padding-bottom: var(--space-xl) !important;
+  }
+}
