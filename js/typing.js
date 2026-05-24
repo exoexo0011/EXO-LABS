@@ -2,7 +2,10 @@
    EXO LABS - Typewriters
    Handles BOTH:
      1) Hero tagline   — any element with [data-typed]
-     2) Hero terminal  — #hero-terminal-body  (interactive menu demo)
+     2) Hero terminal  — #hero-terminal-body
+        Loops between two scenes:
+          Scene 1: EXO-NET interactive menu
+          Scene 2: EXO-NET aggressive scan output
    No external deps. Respects prefers-reduced-motion.
    ============================================ */
 
@@ -57,32 +60,55 @@
   }
 
   /* ============================================================
-     2) Hero terminal — EXO-NET interactive menu demo
+     2) Hero terminal — TWO-SCENE loop
      ============================================================ */
 
-  // Each line is a distinct terminal row. Empty strings render blank lines.
-  // Box-drawing chars render in the green "ok" colour so the menu looks
-  // like a green TUI box.
-  const TERMINAL_LINES = [
+  // Box-drawing characters (kept as \u escapes so the file is ASCII-safe)
+  const BOX_W = 34;                                  // inner width of the menu box
+  const HBAR  = '\u2550'.repeat(BOX_W);              // ═ × 34
+  const TOP   = '\u2554' + HBAR + '\u2557';          // ╔══...══╗
+  const SEP   = '\u2560' + HBAR + '\u2563';          // ╠══...══╣
+  const BOT   = '\u255A' + HBAR + '\u255D';          // ╚══...══╝
+
+  // ----- Scene 1: Interactive menu -----
+  const SCENE_1 = [
     'exo@labs:~$ python exonet.py',
     '',
-    '\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557',
-    '\u2551     EXO NET Pro v2.0.0       \u2551',
-    '\u2560\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2563',
-    '\u2551  [1]  Quick Scan             \u2551',
-    '\u2551  [2]  Full Network Scan      \u2551',
-    '\u2551  [3]  Pro Scan               \u2551',
-    '\u2551  [4]  Stealth Scan           \u2551',
-    '\u2551  [Q]  Quit                   \u2551',
-    '\u255A\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255D',
+    TOP,
+    '\u2551      EXO NET Pro v2.0.0          \u2551',
+    SEP,
+    '\u2551  [1]  Quick Scan                 \u2551',
+    '\u2551  [2]  Full Network Scan          \u2551',
+    '\u2551  [3]  Pro Scan                   \u2551',
+    '\u2551  [4]  Stealth Scan               \u2551',
+    '\u2551  [Q]  Quit                       \u2551',
+    BOT,
     '',
-    '[?] Choose option: 3'
+    '[?] Choose option: 3',
+    '[*] Starting Pro Scan...'
   ];
 
-  // Timings — per spec
-  const CHAR_DELAY    = 40;    // ms per character
-  const LINE_DELAY    = 200;   // ms between lines
-  const RESTART_DELAY = 2500;  // ms before clearing & looping
+  // ----- Scene 2: Aggressive scan output -----
+  const SCENE_2 = [
+    'exo@labs:~$ ./exonet --target 192.168.1.0/24 --aggressive',
+    '[*] Initializing EXO NET Pro v2.0.0...',
+    '[*] Discovering hosts on 192.168.1.0/24...',
+    '[+] Host found: 192.168.1.1 (router.lan) os=Linux ttl=64',
+    '[+] Host found: 192.168.1.5 (desktop.lan) os=Windows ttl=128',
+    '[+] Port 80 open \u2014 nginx/1.24 | "Admin Panel"',
+    '[+] Port 443 open \u2014 TLS 1.3 | self-signed cert detected',
+    '[!] Risk score: MEDIUM (47/100)',
+    '[*] Report saved \u2192 exonet_results/report_pro.html',
+    'exo@labs:~$ '
+  ];
+
+  const SCENES = [SCENE_1, SCENE_2];
+
+  // Timings
+  const CHAR_DELAY = 40;    // ms per character
+  const LINE_DELAY = 300;   // ms between lines
+  const HOLD_DELAY = 2000;  // ms hold after a scene completes
+  const FADE_DELAY = 400;   // ms smooth clear between scenes
 
   // Colour by line content
   function classFor(line) {
@@ -98,55 +124,74 @@
     if (line.startsWith('[+]')) return 'tx-ok';     // green
     if (line.startsWith('[!]')) return 'tx-warn';   // yellow
     if (line.startsWith('[-]')) return 'tx-err';    // red
-    if (line.startsWith('[?]')) return 'tx-info';   // cyan prompt
+    if (line.startsWith('[?]')) return 'tx-accent'; // purple
     return 'tx-cmd';                                // white — commands / prompt
   }
 
   let terminalAborted = false;
 
-  async function runTerminal(el) {
-    while (!terminalAborted) {
-      // Reset for this cycle
-      el.innerHTML = '';
+  async function typeScene(el, scene) {
+    // Reset for this scene
+    el.innerHTML = '';
+    el.style.opacity = '1';
 
-      // A single blinking cursor that follows the typing position
-      const cursor = document.createElement('span');
-      cursor.className = 'tx-cursor';
+    // A single blinking cursor that follows the typing position
+    const cursor = document.createElement('span');
+    cursor.className = 'tx-cursor';
 
-      for (let i = 0; i < TERMINAL_LINES.length; i++) {
-        if (terminalAborted) return;
+    for (let i = 0; i < scene.length; i++) {
+      if (terminalAborted) return;
 
-        const text = TERMINAL_LINES[i];
+      const text = scene[i];
+      const span = document.createElement('span');
+      span.className = classFor(text);
+      el.appendChild(span);
 
-        const span = document.createElement('span');
-        span.className = classFor(text);
-        el.appendChild(span);
+      // Move the blinking cursor to the end of this line
+      if (cursor.parentNode) cursor.remove();
+      el.appendChild(cursor);
 
-        // Move the blinking cursor to the end of this line
-        if (cursor.parentNode) cursor.remove();
-        el.appendChild(cursor);
-
-        // Type each character (empty lines: nothing to type, just pause briefly)
-        if (text.length === 0) {
-          await sleep(LINE_DELAY / 2);
-        } else {
-          for (let j = 0; j < text.length; j++) {
-            if (terminalAborted) return;
-            span.textContent += text[j];
-            await sleep(CHAR_DELAY);
-          }
-        }
-
-        // Newline + pause between lines (skip after last line — cursor stays)
-        if (i < TERMINAL_LINES.length - 1) {
-          cursor.remove();
-          el.appendChild(document.createTextNode('\n'));
-          await sleep(LINE_DELAY);
+      // Type each character (empty lines: short pause for visual breathing room)
+      if (text.length === 0) {
+        await sleep(LINE_DELAY / 2);
+      } else {
+        for (let j = 0; j < text.length; j++) {
+          if (terminalAborted) return;
+          span.textContent += text[j];
+          await sleep(CHAR_DELAY);
         }
       }
 
-      // Hold final state with the blinking cursor on the prompt, then loop
-      await sleep(RESTART_DELAY);
+      // Newline + pause between lines (skip after last line — cursor stays)
+      if (i < scene.length - 1) {
+        cursor.remove();
+        el.appendChild(document.createTextNode('\n'));
+        await sleep(LINE_DELAY);
+      }
+    }
+  }
+
+  async function runTerminal(el) {
+    // Smooth crossfade between scenes
+    el.style.transition = 'opacity ' + FADE_DELAY + 'ms ease';
+
+    let sceneIdx = 0;
+
+    while (!terminalAborted) {
+      // Type the current scene
+      await typeScene(el, SCENES[sceneIdx]);
+      if (terminalAborted) return;
+
+      // Hold for 2s with the blinking cursor pinned to the last line
+      await sleep(HOLD_DELAY);
+      if (terminalAborted) return;
+
+      // Smooth clear (fade to 0, wait, then the next iteration sets opacity 1)
+      el.style.opacity = '0';
+      await sleep(FADE_DELAY);
+
+      // Advance to next scene (wraps 0 → 1 → 0 → 1 … forever)
+      sceneIdx = (sceneIdx + 1) % SCENES.length;
     }
   }
 
@@ -155,12 +200,14 @@
     if (!el) return;
 
     if (reduceMotion) {
-      el.innerHTML = TERMINAL_LINES.map((line, i) => {
+      // Render Scene 1 (the menu) statically with a cursor — preferred for
+      // reduced-motion users since it conveys both the brand and the UI.
+      el.innerHTML = SCENE_1.map((line, i) => {
         const span = `<span class="${classFor(line)}">${escapeHtml(line)}</span>`;
-        const cursor = i === TERMINAL_LINES.length - 1
+        const cursor = i === SCENE_1.length - 1
           ? '<span class="tx-cursor"></span>'
           : '';
-        const nl = i < TERMINAL_LINES.length - 1 ? '\n' : '';
+        const nl = i < SCENE_1.length - 1 ? '\n' : '';
         return span + cursor + nl;
       }).join('');
       return;
