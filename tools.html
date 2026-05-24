@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EXO LABS Tools — EXO-NET network reconnaissance and EXO-OSINT intelligence framework. Professional open-source pentest tooling." />
+  <meta name="theme-color" content="#000000" />
+
+  <title>Tools // EXO LABS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2300ff41'%3E%E2%96%A0%3C/text%3E%3C/svg%3E" />
+</head>
+<body data-page="tools">
+
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <nav class="nav" id="nav" aria-label="Primary">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="EXO LABS home">
+        <span class="bracket">[</span>EXO LABS<span class="bracket">]</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="index.html" class="nav-link" role="menuitem">Home</a></li>
+        <li role="none"><a href="tools.html" class="nav-link active" role="menuitem">Tools</a></li>
+        <li role="none"><a href="about.html" class="nav-link" role="menuitem">About</a></li>
+        <li role="none"><a href="contact.html" class="nav-link" role="menuitem">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="page-header container">
+      <span class="section-eyebrow">// Arsenal</span>
+      <h1>Tools &amp; Frameworks</h1>
+      <p>Production-grade open-source security tooling. Built in Python. MIT-licensed.</p>
+    </header>
+
+    <section class="container">
+      <div class="tools-grid">
+
+        <!-- EXO-NET -->
+        <article class="tool-card reveal" id="exo-net">
+          <header class="tool-card-head">
+            <div class="tool-badges">
+              <span class="badge badge-primary"><i class="fa-brands fa-python" aria-hidden="true"></i> Python</span>
+              <span class="badge badge-secondary">Network Recon</span>
+              <span class="badge badge-warning"><i class="fa-solid fa-bolt" aria-hidden="true"></i> Pentest</span>
+            </div>
+            <div class="tool-name-row">
+              <h2 class="tool-name">EXO-NET</h2>
+              <span class="tool-version">Pro v2.0.0</span>
+            </div>
+            <p class="tool-desc">
+              Advanced network reconnaissance and port scanning toolkit with professional pentest reporting. CVE detection, risk scoring, and stealth profiles built in.
+            </p>
+          </header>
+
+          <div class="tool-card-body">
+            <h3 style="font-size: 0.85rem; color: var(--secondary); letter-spacing: 0.15em; margin-bottom: 0.75rem; text-transform: uppercase;">Capabilities</h3>
+            <ul class="tool-features">
+              <li>Host discovery (ARP + ICMP + TCP)</li>
+              <li>TCP/SYN/UDP port scanning</li>
+              <li>Service banner grabbing</li>
+              <li>OS fingerprinting</li>
+              <li>CVE vulnerability detection</li>
+              <li>Risk scoring engine</li>
+              <li>Professional HTML reports</li>
+              <li>T0–T5 timing profiles</li>
+              <li>Evasion mode</li>
+            </ul>
+
+            <div class="terminal" aria-label="EXO-NET terminal preview">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">exo-net@labs ~ scan</span>
+              </div>
+              <div class="terminal-body" data-terminal="exo-net">
+                <span class="prompt">$</span> <span class="cmd">exo-net --target 10.0.0.0/24 --profile T3 --report html</span>
+                <br /><span class="info">[*]</span> <span class="output">Initializing EXO-NET v2.0.0 // profile=T3 evasion=off</span>
+                <br /><span class="info">[*]</span> <span class="output">Discovering live hosts via ARP + ICMP + TCP...</span>
+                <br /><span class="ok">[+]</span> <span class="output">10.0.0.1     gateway.lan        (up, 2 ports open)</span>
+                <br /><span class="ok">[+]</span> <span class="output">10.0.0.42    workstation-a      (up, 5 ports open)</span>
+                <br /><span class="ok">[+]</span> <span class="output">10.0.0.88    db-internal        (up, 3 ports open)</span>
+                <br /><span class="info">[*]</span> <span class="output">Banner-grabbing services on 22, 80, 443, 3306...</span>
+                <br /><span class="warn">[!]</span> <span class="output">CVE-2023-XXXXX matched on 10.0.0.88:3306 (MySQL 5.7.x)</span>
+                <br /><span class="info">[*]</span> <span class="output">Risk score: <span style="color: var(--danger);">HIGH (8.2)</span></span>
+                <br /><span class="ok">[+]</span> <span class="output">Report saved: ./reports/exo-net_2026-05-24.html</span>
+                <br /><span class="prompt">$</span> <span class="terminal-cursor"></span>
+              </div>
+            </div>
+
+            <h3 style="font-size: 0.85rem; color: var(--secondary); letter-spacing: 0.15em; margin: 0.75rem 0 0.5rem; text-transform: uppercase;">Quick Install</h3>
+            <div class="install-box">
+              <span class="prompt">$</span>
+              <code>git clone https://github.com/exoexo0011/EXO-NET.git</code>
+              <button class="copy-btn" data-copy="git clone https://github.com/exoexo0011/EXO-NET.git" aria-label="Copy install command">COPY</button>
+            </div>
+
+            <div class="tool-actions">
+              <a class="btn btn-primary" href="https://github.com/exoexo0011/EXO-NET" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+              <a class="btn btn-secondary" href="https://github.com/exoexo0011/EXO-NET/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-download" aria-hidden="true"></i> Download
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- EXO-OSINT -->
+        <article class="tool-card reveal delay-1" id="exo-osint">
+          <header class="tool-card-head">
+            <div class="tool-badges">
+              <span class="badge badge-primary"><i class="fa-brands fa-python" aria-hidden="true"></i> Python</span>
+              <span class="badge badge-secondary">OSINT Intelligence</span>
+              <span class="badge badge-warning"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Investigation</span>
+            </div>
+            <div class="tool-name-row">
+              <h2 class="tool-name">EXO-OSINT</h2>
+              <span class="tool-version">v2.0.0</span>
+            </div>
+            <p class="tool-desc">
+              Professional Open Source Intelligence framework for IP, domain, email, username and phone investigation. Correlation engine, footprint scoring, and interactive map-driven reports.
+            </p>
+          </header>
+
+          <div class="tool-card-body">
+            <h3 style="font-size: 0.85rem; color: var(--secondary); letter-spacing: 0.15em; margin-bottom: 0.75rem; text-transform: uppercase;">Capabilities</h3>
+            <ul class="tool-features">
+              <li>IP geolocation + ASN + abuse check</li>
+              <li>Domain WHOIS + DNS + SSL analysis</li>
+              <li>Email breach + reputation check</li>
+              <li>Username hunting (85+ platforms)</li>
+              <li>Phone number intelligence</li>
+              <li>Correlation engine</li>
+              <li>Digital footprint scoring</li>
+              <li>Interactive HTML reports with maps</li>
+            </ul>
+
+            <div class="terminal" aria-label="EXO-OSINT terminal preview">
+              <div class="terminal-header">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-title">exo-osint@labs ~ investigate</span>
+              </div>
+              <div class="terminal-body" data-terminal="exo-osint">
+                <span class="prompt">$</span> <span class="cmd">exo-osint --target target@example.com --deep --map</span>
+                <br /><span class="info">[*]</span> <span class="output">EXO-OSINT v2.0.0 // mode=deep map=enabled</span>
+                <br /><span class="info">[*]</span> <span class="output">Resolving target type: <span style="color:var(--secondary);">EMAIL</span></span>
+                <br /><span class="ok">[+]</span> <span class="output">Breach databases    : 3 hits (LinkedIn, Adobe, Dropbox)</span>
+                <br /><span class="ok">[+]</span> <span class="output">Reputation score    : <span style="color: var(--warning);">SUSPICIOUS (43/100)</span></span>
+                <br /><span class="ok">[+]</span> <span class="output">Linked username     : "target_42" found on 12 platforms</span>
+                <br /><span class="ok">[+]</span> <span class="output">Domain MX           : example.com → Google Workspace</span>
+                <br /><span class="info">[*]</span> <span class="output">Running correlation engine across 14 sources...</span>
+                <br /><span class="ok">[+]</span> <span class="output">Footprint score     : <span style="color: var(--danger);">HIGH (78%)</span></span>
+                <br /><span class="ok">[+]</span> <span class="output">Report saved: ./reports/exo-osint_2026-05-24.html</span>
+                <br /><span class="prompt">$</span> <span class="terminal-cursor"></span>
+              </div>
+            </div>
+
+            <h3 style="font-size: 0.85rem; color: var(--secondary); letter-spacing: 0.15em; margin: 0.75rem 0 0.5rem; text-transform: uppercase;">Quick Install</h3>
+            <div class="install-box">
+              <span class="prompt">$</span>
+              <code>git clone https://github.com/exoexo0011/EXO-OSINT.git</code>
+              <button class="copy-btn" data-copy="git clone https://github.com/exoexo0011/EXO-OSINT.git" aria-label="Copy install command">COPY</button>
+            </div>
+
+            <div class="tool-actions">
+              <a class="btn btn-primary" href="https://github.com/exoexo0011/EXO-OSINT" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github" aria-hidden="true"></i> View on GitHub
+              </a>
+              <a class="btn btn-secondary" href="https://github.com/exoexo0011/EXO-OSINT/archive/refs/heads/main.zip" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-download" aria-hidden="true"></i> Download
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="disclaimer reveal" style="margin-bottom: var(--space-2xl);">
+        <h3 class="disclaimer-title"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Authorized Use Only</h3>
+        <p>
+          EXO LABS tools are designed for authorized penetration testing, security research and educational purposes only.
+          Running these tools against systems you do not own or have explicit written permission to test is illegal in most jurisdictions.
+        </p>
+        <p>You are solely responsible for how you use these tools.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">[ EXO LABS ]</div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Advanced cybersecurity tools and research.</p>
+        </div>
+        <div>
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Repos</h4>
+          <ul>
+            <li><a href="https://github.com/exoexo0011/EXO-NET" target="_blank" rel="noopener noreferrer">EXO-NET</a></li>
+            <li><a href="https://github.com/exoexo0011/EXO-OSINT" target="_blank" rel="noopener noreferrer">EXO-OSINT</a></li>
+            <li><a href="https://github.com/exoexo0011" target="_blank" rel="noopener noreferrer">@exoexo0011</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> EXO LABS // All systems operational</span>
+        <span><i class="fa-solid fa-shield-halved" aria-hidden="true" style="color: var(--primary);"></i> For authorized use only</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="js/animations.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

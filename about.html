@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="About EXO LABS — Mission, tech stack, project timeline and ethical-use policy." />
+  <meta name="theme-color" content="#000000" />
+
+  <title>About // EXO LABS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2300ff41'%3E%E2%96%A0%3C/text%3E%3C/svg%3E" />
+
+  <style>
+    .about-hero {
+      position: relative;
+      padding: calc(var(--nav-height) + var(--space-xl)) 0 var(--space-xl);
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body data-page="about">
+
+  <div class="scroll-progress" id="scroll-progress"></div>
+
+  <nav class="nav" id="nav" aria-label="Primary">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="EXO LABS home">
+        <span class="bracket">[</span>EXO LABS<span class="bracket">]</span>
+      </a>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="index.html" class="nav-link" role="menuitem">Home</a></li>
+        <li role="none"><a href="tools.html" class="nav-link" role="menuitem">Tools</a></li>
+        <li role="none"><a href="about.html" class="nav-link active" role="menuitem">About</a></li>
+        <li role="none"><a href="contact.html" class="nav-link" role="menuitem">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <section class="about-hero">
+      <canvas id="particle-canvas" aria-hidden="true"></canvas>
+      <div class="container" style="position:relative; z-index: 3;">
+        <span class="section-eyebrow reveal">// Identity</span>
+        <h1 class="reveal">About EXO LABS</h1>
+        <p class="reveal" style="color: var(--text-muted); font-family: var(--font-mono); margin-top: var(--space-sm);">
+          // independent security research // open-source tooling // ethical-use only
+        </p>
+      </div>
+    </section>
+
+    <section class="container">
+      <div class="about-grid">
+        <div>
+          <article class="about-card reveal">
+            <span class="section-eyebrow">// Mission</span>
+            <h2 class="section-title">Why EXO LABS exists</h2>
+            <p class="mission-statement">
+              Building professional-grade open-source security tools for ethical hackers and security researchers.
+            </p>
+            <p style="margin-top: var(--space-md);">
+              The cybersecurity community runs on the shoulders of free, auditable, well-engineered tools. EXO LABS
+              contributes to that ecosystem by shipping focused, no-bloat reconnaissance and intelligence frameworks
+              that are practical for real engagements and accessible to learners.
+            </p>
+            <p style="margin-top: var(--space-sm);">
+              Every tool is MIT-licensed, written in clean Python, documented, and designed to integrate into a
+              modern blue-team or red-team workflow.
+            </p>
+          </article>
+
+          <article class="about-card reveal delay-1" style="margin-top: var(--space-lg);">
+            <span class="section-eyebrow">// Stack</span>
+            <h2 class="section-title">Tech &amp; Tooling</h2>
+            <p>The arsenal is built on battle-tested open-source primitives:</p>
+            <div class="tech-stack">
+              <span class="tech-pill"><i class="fa-brands fa-python" aria-hidden="true"></i> Python 3.10+</span>
+              <span class="tech-pill">Scapy</span>
+              <span class="tech-pill">Requests</span>
+              <span class="tech-pill">aiohttp</span>
+              <span class="tech-pill">dnspython</span>
+              <span class="tech-pill">python-whois</span>
+              <span class="tech-pill">BeautifulSoup4</span>
+              <span class="tech-pill">Jinja2</span>
+              <span class="tech-pill">Rich / Textual</span>
+              <span class="tech-pill">Folium (maps)</span>
+              <span class="tech-pill"><i class="fa-brands fa-git-alt" aria-hidden="true"></i> Git</span>
+              <span class="tech-pill"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub Actions</span>
+            </div>
+          </article>
+
+          <article class="about-card reveal delay-2" style="margin-top: var(--space-lg);">
+            <span class="section-eyebrow">// Timeline</span>
+            <h2 class="section-title">Project Timeline</h2>
+            <ol class="timeline">
+              <li class="timeline-item">
+                <span class="timeline-date">v0 // Early 2025</span>
+                <h3 class="timeline-title">Concept &amp; first prototypes</h3>
+                <p class="timeline-desc">
+                  Initial Python prototypes for host discovery and DNS enumeration. Internal-only, hand-rolled scripts.
+                </p>
+              </li>
+              <li class="timeline-item">
+                <span class="timeline-date">v1 // Mid 2025</span>
+                <h3 class="timeline-title">EXO-NET goes public</h3>
+                <p class="timeline-desc">
+                  First open-source release of EXO-NET. ARP/ICMP/TCP discovery, port scan, banner grab and basic HTML report.
+                </p>
+              </li>
+              <li class="timeline-item">
+                <span class="timeline-date">v2 // Late 2025</span>
+                <h3 class="timeline-title">EXO-OSINT framework released</h3>
+                <p class="timeline-desc">
+                  Full OSINT framework: IP, domain, email, username and phone correlation, with map-driven reports.
+                </p>
+              </li>
+              <li class="timeline-item">
+                <span class="timeline-date">v2.0.0 // 2026</span>
+                <h3 class="timeline-title">Pro release: CVE engine + risk scoring</h3>
+                <p class="timeline-desc">
+                  EXO-NET Pro v2.0.0 ships with CVE detection, risk scoring, T0–T5 timing profiles and evasion mode.
+                  EXO-OSINT v2.0.0 adds the correlation engine and digital footprint scoring.
+                </p>
+              </li>
+            </ol>
+          </article>
+        </div>
+
+        <aside style="display:flex; flex-direction:column; gap: var(--space-md);">
+          <a class="contact-link-card reveal" href="https://github.com/exoexo0011" target="_blank" rel="noopener noreferrer">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <div>
+              <div class="label">GitHub</div>
+              <div class="value">@exoexo0011</div>
+            </div>
+          </a>
+
+          <div class="about-card reveal delay-1">
+            <span class="section-eyebrow">// Stats</span>
+            <h3 style="margin-top: 0.5rem;">By the numbers</h3>
+            <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-sm); margin-top: var(--space-sm);">
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 1.75rem; color: var(--primary); text-shadow: var(--glow-sm);">2</div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">Tools</div>
+              </div>
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 1.75rem; color: var(--primary); text-shadow: var(--glow-sm);">1000+</div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">LOC</div>
+              </div>
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 1.75rem; color: var(--primary); text-shadow: var(--glow-sm);">100%</div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">Open Source</div>
+              </div>
+              <div>
+                <div style="font-family: var(--font-mono); font-size: 1.75rem; color: var(--primary); text-shadow: var(--glow-sm);">MIT</div>
+                <div style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.1em; text-transform: uppercase;">License</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-card reveal delay-2">
+            <span class="section-eyebrow">// Principles</span>
+            <h3 style="margin-top: 0.5rem;">Engineering ethos</h3>
+            <ul class="tool-features" style="grid-template-columns: 1fr; margin-top: var(--space-sm);">
+              <li>No telemetry. No phone-home.</li>
+              <li>Auditable code &mdash; no obfuscation.</li>
+              <li>Reports built for humans.</li>
+              <li>Defaults that won't melt the network.</li>
+              <li>Documentation is part of the build.</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
+
+      <div class="disclaimer reveal" style="margin-top: var(--space-xl); margin-bottom: var(--space-2xl);">
+        <h3 class="disclaimer-title"><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> Ethical Use Disclaimer</h3>
+        <p>
+          EXO LABS tools are intended exclusively for authorized security testing, defensive research and education.
+          Use against systems, networks or individuals without explicit written authorization is illegal and unethical.
+        </p>
+        <p>
+          By downloading or using any EXO LABS tool you accept full responsibility for compliance with all applicable
+          laws and regulations in your jurisdiction. EXO LABS and its contributors are not liable for misuse.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand">[ EXO LABS ]</div>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Advanced cybersecurity tools and research.</p>
+        </div>
+        <div>
+          <h4>Navigate</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="tools.html">Tools</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Repos</h4>
+          <ul>
+            <li><a href="https://github.com/exoexo0011/EXO-NET" target="_blank" rel="noopener noreferrer">EXO-NET</a></li>
+            <li><a href="https://github.com/exoexo0011/EXO-OSINT" target="_blank" rel="noopener noreferrer">EXO-OSINT</a></li>
+            <li><a href="https://github.com/exoexo0011" target="_blank" rel="noopener noreferrer">@exoexo0011</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; <span id="year">2026</span> EXO LABS // All systems operational</span>
+        <span><i class="fa-solid fa-shield-halved" aria-hidden="true" style="color: var(--primary);"></i> For authorized use only</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top" aria-label="Back to top" title="Back to top">
+    <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
+  </button>
+
+  <script src="js/animations.js" defer></script>
+  <script src="js/main.js" defer></script>
+</body>
+</html>

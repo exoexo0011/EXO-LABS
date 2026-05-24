@@ -1,0 +1,156 @@
+/* ============================================
+   EXO LABS - Animations
+   ============================================ */
+
+/* Blink (cursor + active link underscore) */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+/* Pulse for scroll indicator arrow */
+@keyframes pulse-down {
+  0%, 100% { transform: translate(-50%, 0); opacity: 0.7; }
+  50% { transform: translate(-50%, 8px); opacity: 1; }
+}
+
+/* Glitch effect — horizontal RGB-style shift */
+@keyframes glitch {
+  0% {
+    text-shadow:
+      0 0 8px var(--primary),
+      0.05em 0 0 var(--danger),
+      -0.05em -0.025em 0 var(--secondary);
+    transform: translate(0, 0);
+  }
+  20% {
+    text-shadow:
+      0 0 8px var(--primary),
+      -0.05em -0.025em 0 var(--danger),
+      0.025em 0.025em 0 var(--secondary);
+    transform: translate(-1px, 1px);
+  }
+  40% {
+    text-shadow:
+      0 0 8px var(--primary),
+      0.025em 0.05em 0 var(--danger),
+      0.05em 0 0 var(--secondary);
+    transform: translate(1px, -1px);
+  }
+  60% {
+    text-shadow:
+      0 0 8px var(--primary),
+      -0.025em 0 0 var(--danger),
+      -0.025em -0.05em 0 var(--secondary);
+    transform: translate(0, 0);
+  }
+  80% {
+    text-shadow:
+      0 0 8px var(--primary),
+      -0.05em -0.025em 0 var(--danger),
+      -0.025em -0.05em 0 var(--secondary);
+    transform: translate(1px, 0);
+  }
+  100% {
+    text-shadow:
+      0 0 8px var(--primary),
+      0.025em 0 0 var(--danger),
+      0 -0.025em 0 var(--secondary);
+    transform: translate(0, 0);
+  }
+}
+
+/* Scanline traveling across hero */
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 255, 65, 0.06),
+    transparent
+  );
+  z-index: 2;
+  pointer-events: none;
+  animation: scanline 8s linear infinite;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 600ms ease both;
+}
+
+/* Slide up */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slideUp 700ms ease both;
+}
+
+.slide-up.delay-1 { animation-delay: 100ms; }
+.slide-up.delay-2 { animation-delay: 200ms; }
+.slide-up.delay-3 { animation-delay: 350ms; }
+.slide-up.delay-4 { animation-delay: 500ms; }
+.slide-up.delay-5 { animation-delay: 700ms; }
+
+/* Scan flicker for ASCII logo */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  41%, 43% { opacity: 0.85; }
+  42% { opacity: 0.7; }
+}
+
+.flicker {
+  animation: flicker 4s infinite;
+}
+
+/* Subtle border glow pulse */
+@keyframes border-pulse {
+  0%, 100% { box-shadow: 0 0 6px var(--primary-dim); }
+  50% { box-shadow: 0 0 18px var(--primary-dim); }
+}
+
+/* Counter pulse on update */
+@keyframes count-bump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.bump {
+  animation: count-bump 200ms ease;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .hero::before,
+  .ascii-logo,
+  .nav-logo:hover {
+    animation: none !important;
+  }
+}

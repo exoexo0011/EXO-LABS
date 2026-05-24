@@ -1,0 +1,155 @@
+/* ============================================
+   EXO LABS - Responsive Overrides
+   Mobile-first; layout/typography handled in style.css.
+   This file fine-tunes nav drawer, hero stats, and edge cases.
+   ============================================ */
+
+/* Tablet & below */
+@media (max-width: 900px) {
+  :root {
+    --space-2xl: 4rem;
+    --space-xl: 3rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
+
+  .stat {
+    text-align: left;
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 0.85rem 1.1rem;
+  }
+
+  .stat-value {
+    font-size: 2.2rem;
+  }
+
+  .stat-label {
+    margin-top: 0;
+  }
+}
+
+/* Mobile nav */
+@media (max-width: 768px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: var(--space-md);
+    transform: translateY(-110%);
+    transition: transform 350ms ease;
+    box-shadow: 0 10px 30px rgba(0, 255, 65, 0.06);
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+  }
+
+  .nav-link {
+    padding: 0.9rem 0.5rem;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 1rem;
+    text-align: left;
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+
+  .nav-link::before {
+    display: none;
+  }
+
+  .nav-link.active {
+    background: var(--primary-soft);
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 480px) {
+  :root {
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+  }
+
+  .ascii-logo {
+    font-size: 0.32rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.95rem;
+  }
+
+  .tool-card-head,
+  .tool-card-body,
+  .featured-card,
+  .about-card,
+  .contact-form {
+    padding: var(--space-md);
+  }
+
+  .tool-name {
+    font-size: 1.5rem;
+  }
+
+  .btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+  }
+
+  .back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 38px;
+    height: 38px;
+  }
+
+  .install-box {
+    font-size: 0.75rem;
+  }
+
+  .install-box code {
+    font-size: 0.72rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Very small ASCII fallback — degrade to compact text logo */
+@media (max-width: 380px) {
+  .ascii-logo {
+    display: none;
+  }
+
+  .ascii-logo-fallback {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    color: var(--primary);
+    text-shadow: 0 0 12px var(--primary), 0 0 24px var(--primary-dim);
+    letter-spacing: 0.15em;
+    margin: 0 0 var(--space-md);
+  }
+}
+
+.ascii-logo-fallback {
+  display: none;
+}
