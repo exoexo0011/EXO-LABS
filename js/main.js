@@ -177,7 +177,7 @@
         `${message}\n`;
 
       const mailto =
-        'mailto:contact@exolabs.dev' +
+        'mailto:lordforpeace0011@gmail.com' +
         '?subject=' + encodeURIComponent('[EXO LABS] ' + subject) +
         '&body=' + encodeURIComponent(body);
 
