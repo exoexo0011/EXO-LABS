@@ -260,3 +260,33 @@
     font-size: 22px;
   }
 }
+
+
+
+/* ============================================
+   Nav v3 — mobile: socials + toggle clustered on right
+   Overrides the older "drawer-footer" styling for .nav-socials.
+   ============================================ */
+
+@media (max-width: 768px) {
+  /* Tighter gap on the right cluster to fit nicely on small screens */
+  .nav-end {
+    gap: 0.45rem;
+  }
+
+  /* Socials live in the navbar now (NOT inside the drawer) */
+  .nav-socials {
+    margin: 0;
+    padding: 0;
+    border: none;
+    justify-content: flex-end;
+    gap: 0.25rem;
+    width: auto;
+  }
+
+  .nav-social {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+}

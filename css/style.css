@@ -1867,3 +1867,34 @@ section {
   background: rgba(0, 255, 65, 0.06);
   transform: translateY(-1px);
 }
+
+
+
+/* ============================================
+   Nav v3 — right-side cluster (links + socials + toggle)
+   Wraps the right-hand nav items so they always stay clustered.
+   On mobile, .nav-links becomes a fixed-position drawer (out of flex
+   flow), and .nav-socials + .nav-toggle remain inline next to the logo.
+   ============================================ */
+
+.nav-end {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Stronger glassmorphism on the navbar */
+.nav {
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+}
+
+.nav.scrolled {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+/* Drop the old margin-left — .nav-end's gap handles spacing now */
+.nav-socials {
+  margin-left: 0;
+}
