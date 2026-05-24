@@ -237,3 +237,26 @@
     margin-top: 0;
   }
 }
+
+
+
+/* ============================================
+   Nav social icons — mobile drawer
+   ============================================ */
+@media (max-width: 768px) {
+  .nav-socials {
+    margin: var(--space-sm) 0 0 0;
+    padding: var(--space-md) 0 0 0;
+    border-left: none;
+    border-top: 1px solid var(--border-soft);
+    justify-content: center;
+    gap: var(--space-md);
+    width: 100%;
+  }
+
+  .nav-social {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+}
